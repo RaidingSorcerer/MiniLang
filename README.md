@@ -8,7 +8,7 @@ MiniLang is a simple Python interpreter that allows you to create and manipulate
 
 ## Status
 
-✅ Phase 1 complete: Basic interpreter working  
+✅ Phase 1 complete: Interpreter with variable persistence and error handling  
 🚧 Phase 2 upcoming: Multi-word strings, file input/output, extra commands
 
 ---
@@ -20,6 +20,8 @@ MiniLang is a simple Python interpreter that allows you to create and manipulate
 - Display variable values with `PRINT`
 - Show all variables with `SHOW`
 - Exit the interpreter with `EXIT`
+- Variables persist across sessions (saved to `variables.json`)
+- Error handling for invalid inputs and operations
 
 ---
 
@@ -54,5 +56,5 @@ Exiting MiniLang...
 ## How to Run
 
 ```bash
-python minilang.py
+python MiniLang
 ```
