@@ -1,0 +1,12 @@
+SET STR greeting MiniLang
+SET INT count 0
+ADD count 1
+PRINT count
+ADD greeting is
+ADD greeting awesome
+PRINT greeting
+SHOW
+SET STR number 123
+ADD number 456
+PRINT number
+EXIT

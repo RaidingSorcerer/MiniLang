@@ -1,0 +1,11 @@
+SET INT x 10
+SET STR name Hello
+PRINT x
+ADD x 5
+PRINT x
+ADD name World
+PRINT name
+SHOW
+SET INT y abc
+ADD z 1
+EXIT
