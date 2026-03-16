@@ -1,9 +1,19 @@
 # MiniLang Phase 1 Starter Template
-
+import os
+import json
 class MiniLang:
+    path="C:\\Users\\USER\\Desktop\\variables.json"
+
     def __init__(self):
         # Store all variables here
-        self.variables = {}
+        if os.path.exists(MiniLang.path):
+            try:
+                with open(MiniLang.path, "r") as file:
+                    self.variables = json.load(file)
+            except json.JSONDecodeError:
+                self.variables = {}
+        else:
+            self.variables = {}
     
     def run(self):
         print("Welcome to MiniLang! Type EXIT to quit.")
@@ -47,11 +57,19 @@ class MiniLang:
     # ================================
     
     def set_var(self, tokens):
+        if len(tokens)>4:
+            print("SyntaxError: SET command requires 4 tokens: SET TYPE VAR VALUE")
         if("INT" in tokens and len(tokens)==4):
-            self.variables[tokens[2]]=[int(tokens[3]),"INT"]
+            try:
+                self.variables[tokens[2]]=[int(tokens[3]),"INT"]
+                with open(MiniLang.path, "w") as file:
+                    json.dump(self.variables, file, indent=4)
+            except ValueError:
+                print("INT must be integers")
         if("STR" in tokens and len(tokens)==4):
             self.variables[tokens[2]]=[tokens[3],"STR"]
-
+            with open(MiniLang.path, "w") as file:
+                json.dump(self.variables, file, indent=4)
         """
         Syntax: SET variable value
         Assigns a value to a variable.
@@ -73,13 +91,19 @@ class MiniLang:
 
         if var_type == "INT":
             # Try converting input to int
-            if value.lstrip("-").isdigit():  # allow negative numbers
-                self.variables[var_name][0] += int(value)
-            else:
-                print("Cannot add non-integer to integer")
+            try:
+                if value.lstrip("-").isdigit():  # allow negative numbers
+                    self.variables[var_name][0] += int(value)
+                    with open(MiniLang.path, "w") as file:
+                        json.dump(self.variables, file, indent=4)
+
+            except Exception as e:
+                print(f"Cannot add non-integer to integer {e}")
         elif var_type == "STR":
             # Always treat input as string
             self.variables[var_name][0] += value
+            with open(MiniLang.path, "w") as file:
+                json.dump(self.variables, file, indent=4)
         else:
             print(f"Unsupported variable type: {var_type}")
     
@@ -91,6 +115,8 @@ class MiniLang:
         pass
 
     def print_var(self, tokens):
+        if len(tokens)>2:
+           print("SyntaxError: PRINT command takes exactly one argument")
         if len(tokens)==2:
 
             if tokens[1] in self.variables.keys():
